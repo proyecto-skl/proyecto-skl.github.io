@@ -1,0 +1,18 @@
+{
+    "id": 10565740,
+    "name": "Bloodbath",
+    "author": "ProyectoSKL",
+    "creators": ["ProyectoSKL"],
+    "verifier": "ProyectoSKL",
+    "verification": "https://www.youtube.com/watch?v=AHPLl4AXg-Y",
+    "percentToQualify": "48",
+    "password": "Free To Copy",
+    "records": [
+        {
+            "user": "Shiku",
+            "link": "https://www.youtube.com/watch?v=-61LQPbBFQ0",
+            "percent": 100,
+            "hz": 0
+        }
+    ]
+}
