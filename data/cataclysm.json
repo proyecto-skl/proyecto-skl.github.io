@@ -19,6 +19,18 @@
             "link": "https://www.youtube.com/watch?v=fLy7F6ROygU",
             "percent": 100,
             "hz": 0
+        },
+        {
+            "user": "Sebas",
+            "link": "",
+            "percent": 100,
+            "hz": 0
+        },
+        {
+            "user": "Vargas",
+            "link": "",
+            "percent": 100,
+            "hz": 240
         }
     ]
 }
