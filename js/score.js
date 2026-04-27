@@ -11,6 +11,11 @@ const scale = 3;
  * @returns {Number}
  */
 export function score(rank, percent, minPercent) {
+    // PARCHE PROYECTOSKL: Si el porcentaje no es un número (ej: "0 - 14"), devuelve 0 puntos
+    if (isNaN(percent) || typeof percent === 'string' && percent.includes('-')) {
+        return 0;
+    }
+
     if (rank > 150) {
         return 0;
     }
@@ -18,11 +23,6 @@ export function score(rank, percent, minPercent) {
         return 0;
     }
 
-    // Old formula
-    /*
-    let score = (100 / Math.sqrt((rank - 1) / 50 + 0.444444) - 50) *
-        ((percent - (minPercent - 1)) / (100 - (minPercent - 1)));
-    */
     // New formula
     let score = (-24.9975*Math.pow(rank-1, 0.4) + 200) *
         ((percent - (minPercent - 1)) / (100 - (minPercent - 1)));
