@@ -13,10 +13,10 @@
 main.dark,
 header.dark {
     color-scheme: dark;
-    /* VARIABLES ACTUALIZADAS A AZUL OSCURO */
-    --color-background: #0d1117;
+    /* VARIABLES ACTUALIZADAS A AZUL OSCURO CON TRANSPARENCIA */
+    --color-background: rgba(13, 17, 23, 0.85); /* Un poco de transparencia para ver el fondo */
     --color-on-background: #c9d1d9;
-    --color-background-hover: #21262d;
+    --color-background-hover: rgba(33, 38, 45, 0.9);
     --color-on-background-hover: #ffffff;
     --color-primary: #0084ff;
     --color-on-primary: white;
@@ -39,7 +39,14 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
-    background-color: var(--color-background);
+    background-color: #000; /* Color de respaldo */
+    
+    /* CONFIGURACIÓN DEL FONDO ESTÁTICO */
+    background-image: url('../assets/bg_gd.png'); /* Asegúrate de que la imagen esté en la carpeta assets */
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 ::-webkit-scrollbar {
@@ -50,13 +57,10 @@ body {
 
 header,
 main {
-    background-color: var(--color-background);
+    background-color: transparent; /* Quitamos el fondo sólido para ver la imagen */
     color: var(--color-on-background);
     display: grid;
-    grid-template-columns: minmax(16rem, 1fr) minmax(16rem, 2fr) minmax(
-            16em,
-            1fr
-        );
+    grid-template-columns: minmax(16rem, 1fr) minmax(16rem, 2fr) minmax(16em, 1fr);
     column-gap: 2rem;
 }
 
@@ -65,14 +69,14 @@ header {
     display: flex;
     padding-inline: calc(25vw - 10rem);
     height: 4rem;
-    /* CAMBIO 1: DEGRADADO Y BORDE EN EL HEADER */
-    background: linear-gradient(90deg, #0084ff 0%, #00c6ff 100%);
+    background: linear-gradient(90deg, rgba(0, 132, 255, 0.9) 0%, rgba(0, 198, 255, 0.9) 100%);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--color-on-primary);
     margin: 1rem 2rem;
     border-radius: 12px;
     box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
     width: calc(100% - 4rem);
+    z-index: 10;
 }
 
 @media screen and (min-width: 1366px) {
@@ -90,40 +94,31 @@ header .logo {
     gap: 1rem;
 }
 
-header .nav {
-    flex: 1;
-}
-
 main {
     height: 0;
     flex: 1;
     display: grid;
     grid-template-rows: minmax(0, 1fr);
     column-gap: 2rem;
+    padding-top: 6rem; /* Espacio para que el header no tape la lista */
 }
 
-/* CAMBIO 2: DEGRADADO GRIS A NEGRO EN LA LISTA (Panel Izquierdo) */
-main > div:first-child {
-    background: linear-gradient(180deg, #21262d 0%, #0d1117 100%);
-    overflow-y: auto;
-}
-
+/* PANELES CON TRANSPARENCIA */
 main > div {
+    background-color: var(--color-background);
+    backdrop-filter: blur(5px); /* Efecto de desenfoque opcional muy pro */
+    border-radius: 12px;
+    margin-bottom: 1rem;
     overflow-y: auto;
 }
 
-.spinner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    grid-column: span 3;
+main > div:first-child {
+    background: linear-gradient(180deg, rgba(33, 38, 45, 0.8) 0%, rgba(13, 17, 23, 0.9) 100%);
+    margin-left: 2rem;
 }
 
-input[type="checkbox"] {
-    height: 1.25rem;
-    width: 1.25rem;
-    cursor: pointer;
-    margin: 0;
+main > div:last-child {
+    margin-right: 2rem;
 }
 
 /* Esto quita el fondo de los recuadros de los nombres de la izquierda */
@@ -133,9 +128,6 @@ main > div:first-child .level-row {
     border: none !important;
 }
 
-/* Si quieres que solo se vea el color cuando pasas el mouse por encima */
 main > div:first-child button:hover {
     background-color: rgba(255, 255, 255, 0.05) !important;
 }
-
-
