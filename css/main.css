@@ -86,19 +86,18 @@ header {
 }
 
 header .logo {
-    justify-self: start;
+    justify-self: start; /* Alineado al inicio para el logo */
     align-self: center;
     display: flex;
     align-items: center;
-    padding-left: 1rem;
 }
 
-/* Estilo para que la imagen no se deforme y quepa bien */
+/* Estilo para la imagen del logo */
 .logo-img {
-    height: 2.8rem;
+    height: 2.8rem; /* Tamaño proporcional al header de 4rem */
     width: auto;
     object-fit: contain;
-    display: block;
+    padding-left: 1rem;
 }
 
 main {
@@ -117,7 +116,7 @@ main > div {
     border-radius: 12px;
     margin-bottom: 1rem;
     overflow-y: auto;
-    border: 1px solid rgba(255, 255, 255, 0.15); 
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 main > div:first-child {
