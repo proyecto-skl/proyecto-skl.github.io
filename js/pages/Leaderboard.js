@@ -72,8 +72,8 @@ export default {
                             </tr>
                         </table>
 
-                        <h2 v-if="entry.challenges.length > 0">Challenges ({{entry.challenges.length}})</h2>
-                        <table class="table" v-if="entry.challenges.length > 0">
+                        <h2 v-if="entry.challenges && entry.challenges.length > 0">Challenges ({{entry.challenges.length}})</h2>
+                        <table class="table" v-if="entry.challenges && entry.challenges.length > 0">
                             <tr v-for="score in entry.challenges">
                                 <td class="rank"><p>#{{ score.rank }}</p></td>
                                 <td class="level">
@@ -104,10 +104,17 @@ export default {
         },
     },
     async mounted() {
+        // ACTIVAR MODO DORADO
+        document.body.classList.add('gold-theme');
+        
         const [leaderboard, err] = await fetchLeaderboard();
         this.leaderboard = leaderboard;
         this.err = err;
         this.loading = false;
+    },
+    unmounted() {
+        // DESACTIVAR MODO DORADO AL SALIR
+        document.body.classList.remove('gold-theme');
     },
     methods: {
         localize,
