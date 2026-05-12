@@ -77,18 +77,11 @@ export async function fetchLeaderboard() {
     const scoreMap = {};
     const errs = [];
 
-    // Procesar niveles normales
+    // 1. Procesar niveles normales
     list.forEach(([level, err], rank) => {
         if (err || !level) return;
         
-        const verification = level.verifier;
-        scoreMap[verification] ??= { verified: [], completed: [], progressed: [], challenges: [] };
-        scoreMap[verification].verified.push({
-            rank: rank + 1,
-            level: level.name,
-            score: score(rank + 1, 100, level.percentToQualify),
-            link: level.verification,
-        });
+        // --- SE HA ELIMINADO LA SECCIÓN DE VERIFIER AQUÍ ---
 
         (level.records || []).forEach((record) => {
             const user = record.user;
@@ -112,23 +105,15 @@ export async function fetchLeaderboard() {
         });
     });
 
-    // Procesar challenges
+    // 2. Procesar challenges
     if (challengesList) {
         challengesList.forEach(([level, err], rank) => {
             if (err || !level) return;
 
-            const verification = level.verifier;
-            scoreMap[verification] ??= { verified: [], completed: [], progressed: [], challenges: [] };
-            
             // Los challenges dan el 20% de puntos (dividido por 5)
             const challengeScore = round(score(rank + 1, 100, level.percentToQualify) / 5);
 
-            scoreMap[verification].challenges.push({
-                rank: rank + 1,
-                level: level.name,
-                score: challengeScore,
-                link: level.verification,
-            });
+            // --- SE HA ELIMINADO LA SECCIÓN DE VERIFIER AQUÍ TAMBIÉN ---
 
             (level.records || []).forEach((record) => {
                 const user = record.user;
@@ -146,10 +131,14 @@ export async function fetchLeaderboard() {
     }
 
     const res = Object.entries(scoreMap).map(([user, scores]) => {
-        const total = [...scores.verified, ...scores.completed, ...scores.progressed, ...scores.challenges]
+        // Ahora solo sumamos completed, progressed y challenges (verified estará siempre vacío)
+        const total = [...scores.completed, ...scores.progressed, ...scores.challenges]
             .reduce((prev, cur) => prev + cur.score, 0);
         return { user, total: round(total), ...scores };
     });
 
-    return [res.sort((a, b) => b.total - a.total), errs];
+    // Filtramos para no mostrar usuarios que tengan 0 puntos (por si acaso)
+    const filteredRes = res.filter(entry => entry.total > 0);
+
+    return [filteredRes.sort((a, b) => b.total - a.total), errs];
 }
