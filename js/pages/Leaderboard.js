@@ -37,7 +37,7 @@ export default {
                             <td class="total">
                                 <p class="type-label-lg">{{ localize(ientry.total) }}</p>
                             </td>
-                            <td class="user" :class="{ 'active': selected == i }">
+                            <td class="user" :class="{ 'active': selected === i }">
                                 <button @click="selected = i">
                                     <span class="type-label-lg">{{ ientry.user }}</span>
                                 </button>
@@ -46,49 +46,51 @@ export default {
                     </table>
                 </div>
                 <div class="player-container">
-                    <div class="player">
+                    <div class="player" v-if="entry">
                         <h1>#{{ selected + 1 }} {{ entry.user }}</h1>
-                        <h3>{{ entry.total }}</h3>
-                        <h2 v-if="entry.verified.length > 0">Verified ({{ entry.verified.length}})</h2>
-                        <table class="table">
+                        <h3>{{ localize(entry.total) }} points</h3>
+                        
+                        <h2 v-if="entry.verified.length > 0">Verified ({{entry.verified.length}})</h2>
+                        <table class="table" v-if="entry.verified.length > 0">
                             <tr v-for="score in entry.verified">
-                                <td class="rank">
-                                    <p>#{{ score.rank }}</p>
-                                </td>
+                                <td class="rank"><p>#{{ score.rank }}</p></td>
                                 <td class="level">
                                     <a class="type-label-lg" target="_blank" :href="score.link">{{ score.level }}</a>
                                 </td>
-                                <td class="score">
-                                    <p>+{{ localize(score.score) }}</p>
-                                </td>
+                                <td class="score"><p>+{{ localize(score.score) }}</p></td>
                             </tr>
                         </table>
-                        <h2 v-if="entry.completed.length > 0">Completed ({{ entry.completed.length }})</h2>
-                        <table class="table">
+
+                        <h2 v-if="entry.completed.length > 0">Completed ({{entry.completed.length}})</h2>
+                        <table class="table" v-if="entry.completed.length > 0">
                             <tr v-for="score in entry.completed">
-                                <td class="rank">
-                                    <p>#{{ score.rank }}</p>
-                                </td>
+                                <td class="rank"><p>#{{ score.rank }}</p></td>
                                 <td class="level">
                                     <a class="type-label-lg" target="_blank" :href="score.link">{{ score.level }}</a>
                                 </td>
-                                <td class="score">
-                                    <p>+{{ localize(score.score) }}</p>
-                                </td>
+                                <td class="score"><p>+{{ localize(score.score) }}</p></td>
                             </tr>
                         </table>
-                        <h2 v-if="entry.progressed.length > 0">Progressed ({{entry.progressed.length}})</h2>
-                        <table class="table">
-                            <tr v-for="score in entry.progressed">
-                                <td class="rank">
-                                    <p>#{{ score.rank }}</p>
+
+                        <h2 v-if="entry.challenges.length > 0">Challenges ({{entry.challenges.length}})</h2>
+                        <table class="table" v-if="entry.challenges.length > 0">
+                            <tr v-for="score in entry.challenges">
+                                <td class="rank"><p>#{{ score.rank }}</p></td>
+                                <td class="level">
+                                    <a class="type-label-lg" target="_blank" :href="score.link">{{ score.level }}</a>
                                 </td>
+                                <td class="score"><p>+{{ localize(score.score) }}</p></td>
+                            </tr>
+                        </table>
+
+                        <h2 v-if="entry.progressed.length > 0">Progressed ({{entry.progressed.length}})</h2>
+                        <table class="table" v-if="entry.progressed.length > 0">
+                            <tr v-for="score in entry.progressed">
+                                <td class="rank"><p>#{{ score.rank }}</p></td>
                                 <td class="level">
                                     <a class="type-label-lg" target="_blank" :href="score.link">{{ score.percent }}% {{ score.level }}</a>
                                 </td>
-                                <td class="score">
-                                    <p>+{{ localize(score.score) }}</p>
-                                </td>
+                                <td class="score"><p>+{{ localize(score.score) }}</p></td>
                             </tr>
                         </table>
                     </div>
@@ -105,7 +107,6 @@ export default {
         const [leaderboard, err] = await fetchLeaderboard();
         this.leaderboard = leaderboard;
         this.err = err;
-        // Hide loading spinner
         this.loading = false;
     },
     methods: {
