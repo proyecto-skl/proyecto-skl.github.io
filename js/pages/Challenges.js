@@ -59,8 +59,16 @@ export default {
     }),
     computed: {
         level() {
-            // Seguridad: solo devuelve el nivel si la lista ya cargó y tiene elementos
-            return (this.list && this.list.length > 0 && this.list[this.selected]) ? this.list[this.selected][0] : null;
+            // Verificamos que la lista exista y tenga el elemento seleccionado
+            if (this.list && this.list.length > 0 && this.list[this.selected]) {
+                return this.list[this.selected][0];
+            }
+            return null; // Si no hay nada, devolvemos null en lugar de romper la web
+        },
+
+        video() {
+            // Solo intentamos generar el link del video si el nivel existe
+            return this.level ? embed(this.level.verification) : '';
         }
     },
     async mounted() {
