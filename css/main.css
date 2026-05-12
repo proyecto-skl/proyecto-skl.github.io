@@ -159,62 +159,114 @@ main > div:first-child button:hover {
     background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-/* --- MODO DORADO LEADERBOARD (CORREGIDO V3: AJUSTE DE TEXTO) --- */
+/* --- MODO DORADO LEADERBOARD (UNIFICADO: ESTRUCTURA AMPLIA + CORRECCIÓN DE TEXTO) --- */
 
-/* ... (mantén tus secciones 1, 2 y 3 igual) ... */
+/* 1. Fondo de la página: Imagen completa y fija */
+body.gold-theme {
+    background-image: url('../assets/bg2_gd.png') !important;
+    background-color: #1a1500; 
+    background-attachment: fixed;
+    background-size: cover;
+}
 
-/* 4. AJUSTE DE TAMAÑO: Caja del Jugador */
+/* 2. Degradado en el Header */
+body.gold-theme header {
+    background: linear-gradient(90deg, #ffd800 0%, #ff7e00 100%) !important;
+    border-bottom: 2px solid #000;
+}
+
+body.gold-theme header .nav__tab span,
+body.gold-theme header .nav__cta {
+    color: #000 !important;
+    font-weight: bold;
+}
+
+/* 3. Limpieza de contenedores para eliminar fondos azules y sombras extra */
+body.gold-theme .page-leaderboard-container,
+body.gold-theme .board-container,
+body.gold-theme .page-leaderboard {
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+/* 4. ESTRUCTURA DE LA CAJA (V2): Espaciosa y equilibrada */
 body.gold-theme .player-container {
     flex: 2.5 !important; 
     padding: 20px;
-    min-width: 0; /* CRÍTICO: Permite que el contenido interno se encoja */
+    min-width: 0; /* Permite que el contenido se ajuste sin romperse */
 }
 
 body.gold-theme .player {
     background-color: rgba(0, 0, 0, 0.9) !important;
     border: 2px solid #ffd800;
-    padding: 30px !important; /* Reducido de 50 a 30 para ganar espacio lateral */
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+    padding: 50px !important; /* Mantenemos el padding amplio que te gustó */
     min-height: 700px;
     border-radius: 15px;
-    overflow-x: hidden; /* Evita que nada se salga de la caja */
+    overflow: hidden; /* Evita fugas de texto */
 }
 
-/* 5. ARREGLO DE TABLA Y TEXTO SUPERPUESTO */
+/* 5. TABLA DE NIVELES (V2 + V3): Espaciado de tarjeta con control de desborde */
 body.gold-theme .player .table {
     width: 100%;
-    table-layout: fixed; /* Fuerza a las columnas a respetar el ancho */
-    border-spacing: 0 8px;
+    margin-bottom: 40px;
+    border-spacing: 0 12px; 
     border-collapse: separate;
+    table-layout: fixed; /* Fuerza a las celdas a respetar el ancho total */
 }
 
 body.gold-theme .player .table td {
-    padding: 10px !important;
-    background-color: rgba(255, 255, 255, 0.05);
+    padding: 15px !important; 
+    background-color: rgba(255, 255, 255, 0.05); 
+    border-radius: 5px;
     overflow: hidden;
-    text-overflow: ellipsis; /* Si el nombre es muy largo, pone "..." */
-    white-space: nowrap;    /* Evita que el texto salte de línea y rompa la fila */
+    text-overflow: ellipsis; /* Pone "..." si el nombre es muy largo */
+    white-space: nowrap;    /* Evita que el texto salte de línea */
 }
 
-/* Anchos fijos para columnas pequeñas, el resto para el nombre del nivel */
-body.gold-theme .player .table .rank { width: 50px; }
-body.gold-theme .player .table .score { width: 100px; text-align: right; }
+/* Ajuste de columnas para que el nivel tenga el máximo espacio posible */
+body.gold-theme .player .table .rank { width: 60px; }
+body.gold-theme .player .table .score { width: 110px; text-align: right; }
+body.gold-theme .player .table .level { width: auto; text-align: left; }
 
-body.gold-theme .player .table .level {
-    width: auto;
-    text-align: left;
-}
-
-/* 6. COLORES Y FUENTES AJUSTADAS */
-body.gold-theme .player a {
-    color: #ffb400 !important;
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
+/* 6. COLORES, FUENTES Y ENLACES (V2) */
 body.gold-theme h1 { 
-    font-size: 2.5rem !important; /* Un poco más pequeño para evitar que choque */
+    font-size: 3rem !important; 
+    margin-bottom: 15px; 
+    color: #ffd800 !important; 
     word-wrap: break-word;
 }
 
-/* ... (el resto de la lista y botón activo igual) ... */
+body.gold-theme h2 { 
+    margin-top: 35px; 
+    font-size: 1.8rem;
+    color: #ffd800 !important; 
+    border-bottom: 2px solid #ffd800; 
+    padding-bottom: 10px; 
+}
+
+body.gold-theme h3 { 
+    font-size: 1.5rem;
+    color: #ffb400 !important; 
+}
+
+body.gold-theme .player a {
+    color: #ffb400 !important;
+    text-decoration: none;
+}
+
+/* 7. Lista de jugadores (izquierda) */
+body.gold-theme .board {
+    background-color: rgba(0, 0, 0, 0.85) !important;
+    border: 2px solid #ffd800;
+}
+
+body.gold-theme .board .user.active button {
+    background-color: #ffd800 !important;
+}
+
+body.gold-theme .board .user.active span {
+    color: #000 !important;
+    font-weight: bold;
+}
