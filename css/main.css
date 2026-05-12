@@ -159,9 +159,9 @@ main > div:first-child button:hover {
     background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-/* --- MODO DORADO LEADERBOARD (UNIFICADO: ESTRUCTURA AMPLIA + CORRECCIÓN DE TEXTO) --- */
+/* --- MODO DORADO LEADERBOARD (UNIFICADO + CAPA FANTASMA TOTAL) --- */
 
-/* 1. Fondo de la página: Imagen completa y fija */
+/* 1. Fondo de la página (La capa más al fondo) */
 body.gold-theme {
     background-image: url('../assets/bg2_gd.png') !important;
     background-color: #1a1500; 
@@ -181,39 +181,44 @@ body.gold-theme header .nav__cta {
     font-weight: bold;
 }
 
-/* 3. Limpieza de contenedores para eliminar fondos azules y sombras extra */
-body.gold-theme .page-leaderboard-container,
-body.gold-theme .board-container,
-body.gold-theme .page-leaderboard {
-    background: transparent !important;
-    background-color: transparent !important;
+/* 3. CAPA FANTASMA: Ahora ocupa toda la página */
+/* Esta capa está detrás de las tablas pero delante del bg2_gd */
+body.gold-theme .page-leaderboard-container {
+    background: rgba(0, 0, 0, 0.4) !important; /* Oscurece un poco el fondo globalmente */
+    min-height: 100vh;
     box-shadow: none !important;
 }
 
-/* 4. ESTRUCTURA DE LA CAJA (V2): Espaciosa y equilibrada */
+body.gold-theme .page-leaderboard {
+    background: transparent !important; /* Quitamos el recuadro pequeño "fantasma" */
+    max-width: 100%; /* Permitimos que se expanda */
+    padding: 20px;
+}
+
+/* 4. ESTRUCTURA DE LA CAJA: Espaciosa y equilibrada */
 body.gold-theme .player-container {
     flex: 2.5 !important; 
     padding: 20px;
-    min-width: 0; /* Permite que el contenido se ajuste sin romperse */
+    min-width: 0; 
 }
 
 body.gold-theme .player {
-    background-color: rgba(0, 0, 0, 0.9) !important;
+    background-color: rgba(0, 0, 0, 0.9) !important; /* Caja sólida */
     border: 2px solid #ffd800;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
-    padding: 50px !important; /* Mantenemos el padding amplio que te gustó */
+    padding: 50px !important; 
     min-height: 700px;
     border-radius: 15px;
-    overflow: hidden; /* Evita fugas de texto */
+    overflow: hidden;
 }
 
-/* 5. TABLA DE NIVELES (V2 + V3): Espaciado de tarjeta con control de desborde */
+/* 5. TABLA DE NIVELES: Control de desborde */
 body.gold-theme .player .table {
     width: 100%;
     margin-bottom: 40px;
     border-spacing: 0 12px; 
     border-collapse: separate;
-    table-layout: fixed; /* Fuerza a las celdas a respetar el ancho total */
+    table-layout: fixed; 
 }
 
 body.gold-theme .player .table td {
@@ -221,21 +226,18 @@ body.gold-theme .player .table td {
     background-color: rgba(255, 255, 255, 0.05); 
     border-radius: 5px;
     overflow: hidden;
-    text-overflow: ellipsis; /* Pone "..." si el nombre es muy largo */
-    white-space: nowrap;    /* Evita que el texto salte de línea */
+    text-overflow: ellipsis; 
+    white-space: nowrap;    
 }
 
-/* Ajuste de columnas para que el nivel tenga el máximo espacio posible */
 body.gold-theme .player .table .rank { width: 60px; }
 body.gold-theme .player .table .score { width: 110px; text-align: right; }
 body.gold-theme .player .table .level { width: auto; text-align: left; }
 
-/* 6. COLORES, FUENTES Y ENLACES (V2) */
+/* 6. COLORES Y FUENTES */
 body.gold-theme h1 { 
     font-size: 3rem !important; 
-    margin-bottom: 15px; 
     color: #ffd800 !important; 
-    word-wrap: break-word;
 }
 
 body.gold-theme h2 { 
@@ -246,14 +248,8 @@ body.gold-theme h2 {
     padding-bottom: 10px; 
 }
 
-body.gold-theme h3 { 
-    font-size: 1.5rem;
-    color: #ffb400 !important; 
-}
-
 body.gold-theme .player a {
     color: #ffb400 !important;
-    text-decoration: none;
 }
 
 /* 7. Lista de jugadores (izquierda) */
