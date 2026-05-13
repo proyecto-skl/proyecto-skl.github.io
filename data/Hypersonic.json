@@ -32,6 +32,12 @@
             "link": "",
             "percent": 100,
             "hz": 0
+        },
+       {
+            "user": "OldKeptaBB",
+            "link": "https://www.youtube.com/watch?v=1xzoo8aT65Y",
+            "percent": 100,
+            "hz": 240
         }
     ]
 }
