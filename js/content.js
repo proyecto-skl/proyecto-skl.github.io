@@ -7,27 +7,11 @@ export async function fetchMapPacks() {
     try {
         const mapPacksResults = await fetch(`${dir}/_mappacks.json`);
         return await mapPacksResults.json();
-    } catch {
-        return null;
-    }
+    } catch { return null; }
 }
 
-export async function fetchEditors() {
-    try {
-        const editorsResults = await fetch(`${dir}/_editors.json`);
-        return await editorsResults.json();
-    } catch {
-        return null;
-    }
-}
-
-export async function fetchList() {
-    return await fetchAnyList(dir);
-}
-
-export async function fetchChallengesList() {
-    return await fetchAnyList(challengesDir);
-}
+export async function fetchList() { return await fetchAnyList(dir); }
+export async function fetchChallengesList() { return await fetchAnyList(challengesDir); }
 
 async function fetchAnyList(basePath) {
     try {
@@ -41,14 +25,10 @@ async function fetchAnyList(basePath) {
                     if (!levelResult.ok) throw new Error("404");
                     const level = await levelResult.json();
                     return [level, null];
-                } catch (e) {
-                    return [null, path];
-                }
+                } catch (e) { return [null, path]; }
             })
         );
-    } catch {
-        return null;
-    }
+    } catch { return null; }
 }
 
 export async function fetchLeaderboard() {
@@ -57,18 +37,12 @@ export async function fetchLeaderboard() {
     const scoreMap = {};
     const errs = [];
 
-    // Procesar Lista Principal
     if (list) {
         list.forEach(([level, err], rank) => {
-            if (err) {
-                errs.push(err);
-                return;
-            }
-            if (!level) return;
-
+            if (err || !level) { if (err) errs.push(err); return; }
             (level.records || []).forEach((record) => {
                 const user = record.user;
-                scoreMap[user] ??= { verified: [], completed: [], progressed: [], challenges: [] };
+                scoreMap[user] ??= { completed: [], progressed: [], challenges: [] };
                 if (record.percent === 100) {
                     scoreMap[user].completed.push({
                         rank: rank + 1,
@@ -89,16 +63,13 @@ export async function fetchLeaderboard() {
         });
     }
 
-    // Procesar Challenges (20% de puntos)
     if (challengesList) {
         challengesList.forEach(([level, err], rank) => {
             if (err || !level) return;
-
             const challengeScore = round(score(rank + 1, 100, level.percentToQualify) / 5);
-
             (level.records || []).forEach((record) => {
                 const user = record.user;
-                scoreMap[user] ??= { verified: [], completed: [], progressed: [], challenges: [] };
+                scoreMap[user] ??= { completed: [], progressed: [], challenges: [] };
                 if (record.percent === 100) {
                     scoreMap[user].challenges.push({
                         rank: rank + 1,
