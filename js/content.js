@@ -10,6 +10,13 @@ export async function fetchMapPacks() {
     } catch { return null; }
 }
 
+export async function fetchEditors() {
+    try {
+        const editorsResults = await fetch(`${dir}/_editors.json`);
+        return await editorsResults.json();
+    } catch { return null; }
+}
+
 export async function fetchList() { return await fetchAnyList(dir); }
 export async function fetchChallengesList() { return await fetchAnyList(challengesDir); }
 
