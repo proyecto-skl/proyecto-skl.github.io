@@ -138,7 +138,10 @@ main > div:nth-child(2) {
 .level-container .level {
     position: relative; /* Clave para posicionar el marco perfectamente alineado */
     background-color: rgba(0, 0, 0, 0.78) !important; /* Fondo oscuro interno para leer el texto sin problemas */
-    padding: 40px !important; /* Espacio interno para que las letras no pisen el marco */
+    
+    /* CAMBIO AQUÍ: Ampliado el padding para alejar las letras del marco */
+    padding: 55px 60px !important; 
+    
     margin: 15px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
     z-index: 1;
@@ -148,7 +151,7 @@ main > div:nth-child(2) {
 .level-container .level::before {
     content: "";
     position: absolute;
-    top: -15px;    /* Lo expande un poquito hacia afuera de la caja */
+    top: -15px;    /* Mantiene tu tamaño calibrado intacto */
     left: -15px;
     right: -15px;
     bottom: -15px;
