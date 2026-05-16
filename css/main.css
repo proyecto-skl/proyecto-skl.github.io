@@ -86,15 +86,14 @@ header {
 }
 
 header .logo {
-    justify-self: start; /* Alineado al inicio para el logo */
+    justify-self: start; 
     align-self: center;
     display: flex;
     align-items: center;
 }
 
-/* Estilo para la imagen del logo */
 .logo-img {
-    height: 2.8rem; /* Tamaño proporcional al header de 4rem */
+    height: 2.8rem; 
     width: auto;
     object-fit: contain;
     padding-left: 1rem;
@@ -127,7 +126,7 @@ main > div:last-child {
     margin-right: 2rem;
 }
 
-/* --- PANEL CENTRAL FULL TRANSPARENTE --- */
+/* --- PANEL CENTRAL TOTALMENTE TRANSPARENTE --- */
 main > div:nth-child(2) {
     background: transparent !important;
     backdrop-filter: none !important;
@@ -137,15 +136,28 @@ main > div:nth-child(2) {
 
 /* MARCO PERSONALIZADO ESTILO GEOMETRY DASH PARA LA INFO DEL NIVEL */
 .level-container .level {
-    background-color: rgba(0, 0, 0, 0.78) !important; /* Fondo oscuro sólido interno para leer bien las letras */
-    padding: 35px !important;
-    margin: 10px;
+    position: relative; /* Clave para posicionar el marco perfectamente alineado */
+    background-color: rgba(0, 0, 0, 0.78) !important; /* Fondo oscuro interno para leer el texto sin problemas */
+    padding: 40px !important; /* Espacio interno para que las letras no pisen el marco */
+    margin: 15px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-    
-    /* Configuración del marco de imágenes */
-    border: 28px solid transparent; /* El grosor visible de tu marco en pantalla */
-    border-image-source: url('../assets/frame.png');
-    border-image-slice: 75 repeat; /* Corta la imagen conservando esquinas sin estirarlas feo */
+    z-index: 1;
+}
+
+/* El recuadro decorativo superpuesto */
+.level-container .level::before {
+    content: "";
+    position: absolute;
+    top: -12px;    /* Lo expande un poquito hacia afuera de la caja */
+    left: -12px;
+    right: -12px;
+    bottom: -12px;
+    background-image: url('../assets/frame.png');
+    background-size: 100% 100%; /* Estira tu marco completo para que encaje al milímetro */
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none; /* Los clics pasan a través de la imagen (puedes clickear el video/links de abajo) */
+    z-index: 5;
 }
 
 /* Sombra de texto para legibilidad sobre el fondo de GD */
@@ -172,9 +184,8 @@ main > div:first-child button:hover {
     background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-/* --- MODO DORADO LEADERBOARD (UNIFICADO + CAPA FANTASMA TOTAL) --- */
+/* --- MODO DORADO LEADERBOARD (UNIFICADO) --- */
 
-/* 1. Fondo de la página (La capa más al fondo) */
 body.gold-theme {
     background-image: url('../assets/bg2_gd.png') !important;
     background-color: #1a1500; 
@@ -182,7 +193,6 @@ body.gold-theme {
     background-size: cover;
 }
 
-/* 2. Degradado en el Header */
 body.gold-theme header {
     background: linear-gradient(90deg, #ffd800 0%, #ff7e00 100%) !important;
     border-bottom: 2px solid #000;
@@ -194,7 +204,6 @@ body.gold-theme header .nav__cta {
     font-weight: bold;
 }
 
-/* 3. CAPA FANTASMA: Ahora ocupa toda la página */
 body.gold-theme .page-leaderboard-container {
     background: rgba(0, 0, 0, 0.4) !important; 
     min-height: 100vh;
@@ -207,7 +216,6 @@ body.gold-theme .page-leaderboard {
     padding: 20px;
 }
 
-/* 4. ESTRUCTURA DE LA CAJA: Espaciosa y equilibrada */
 body.gold-theme .player-container {
     flex: 2.5 !important; 
     padding: 20px;
@@ -224,7 +232,6 @@ body.gold-theme .player {
     overflow: hidden;
 }
 
-/* 5. TABLA DE NIVELES: Control de desborde */
 body.gold-theme .player .table {
     width: 100%;
     margin-bottom: 40px;
@@ -246,7 +253,6 @@ body.gold-theme .player .table .rank { width: 60px; }
 body.gold-theme .player .table .score { width: 110px; text-align: right; }
 body.gold-theme .player .table .level { width: auto; text-align: left; }
 
-/* 6. COLORES Y FUENTES */
 body.gold-theme h1 { 
     font-size: 3rem !important; 
     color: #ffd800 !important; 
@@ -264,7 +270,6 @@ body.gold-theme .player a {
     color: #ffb400 !important;
 }
 
-/* 7. Lista de jugadores (izquierda) */
 body.gold-theme .board {
     background-color: rgba(0, 0, 0, 0.85) !important;
     border: 2px solid #ffd800;
