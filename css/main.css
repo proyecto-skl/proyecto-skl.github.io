@@ -149,8 +149,8 @@ main > div:nth-child(2) {
     content: "";
     position: absolute;
     top: -12px;    /* Lo expande un poquito hacia afuera de la caja */
-    left: -12px;
-    right: -12px;
+    left: -20px;
+    right: -20px;
     bottom: -12px;
     background-image: url('../assets/frame.png');
     background-size: 100% 100%; /* Estira tu marco completo para que encaje al milímetro */
